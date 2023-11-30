@@ -1,0 +1,1 @@
+INSERT INTO `contact` (`ID`, `Name`, `Email`, `Massage`, `Time`) VALUES (NULL, 'MD Saifur Rahman', 'saifurrahmansaif546@gmail.com', 'Hello', current_timestamp());
