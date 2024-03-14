@@ -1,37 +1,3 @@
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "contact db";
-
-$DB_connect = mysqli_connect ($servername , $username , $password , $database);
-if ($DB_connect -> connect_error) {
-  die ("Connection failed : " . $DB_connect -> connect_error);
-};
-
-$sql = " INSERT INTO `contact` (`Name`, `Email`, `Massage`, `Time`) VALUES ('$name', '$email', '$message', current_timestamp()" ;
-$result = mysqli_query ($DB_connect , $sql);
-if ($result) {
-  echo ' <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <p>Your message has been submitted successfully</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Done</button>
-                </div>
-              </div>
-            </div>
-          </div> ' ;
-}
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,6 +18,32 @@ if ($result) {
                         </div>
             </nav>
 </header>
+<!-- database -->
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "contact db";
+
+$DB_connect = mysqli_connect ($servername , $username , $password , $database);
+if ($DB_connect -> connect_error) {
+  die ("Connection failed : " . $DB_connect -> connect_error);
+};
+
+$name = $_POST['name'];
+$email = $_POST['email'];
+$message = $_POST['message'];
+
+$sql = " INSERT INTO `contact` (`Name`, `Email`, `Messages`) VALUES ('$name', '$email', '$message')" ;
+$result = mysqli_query ($DB_connect , $sql);
+if ($result) {
+  echo ' <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success</strong> You should check in on some of those fields below.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div> ' ;
+}
+?>
+
     <!-- error script -->
     <?php
     if ($_SERVER["REQUEST_METHOD"] == "POST" && (empty($name) || empty($email) || empty($message))) {
@@ -63,7 +55,7 @@ if ($result) {
     ?>
 
 <div class="container">
-<form action="Form.php" method="post" class="w-50 mx-auto mt-4">
+<form action="Form.php" method="post" class="w-50 m-auto mt-4">
   <div class="mb-3">
     <label for="name" class="form-label">Name</label>
     <input type="text" name="name" class="form-control">
